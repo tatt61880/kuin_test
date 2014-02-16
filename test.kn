@@ -1,6 +1,6 @@
 {
 	コンパイルエラーチェック用。
-	Last Modified: 2014/02/16 11:14:14.
+	Last Modified: 2014/02/16 11:23:56.
 }
 func Main()
 	var c: C :: #C
@@ -32,18 +32,19 @@ func Main()
 			do me.bgmPlayCross :: BGM@PlayCross
 			do me.bgmStop :: BGM@Stop
 			do me.bgmStopFade :: BGM@StopFade
-			{
+		{
 			{FIXME E9999}
 			do me.sndLoad :: Snd@Load
-			}
+		}
+
 			try
 			{
-				{FIXME Dbg.txtが更新されなかったり、クラッシュしたり...}
-				do me.bgmPlay(null, 0.0, 0.0)
+				{FIXME Dbg.txtが更新されなかったり、クラッシュしたり... (★1と★2の順番を変えたら問題なさそうでしたけど、偶然かも)}
+				do me.bgmPlay(null, 0.0, 0.0) {★1}
 			}
 			{
 				{FIXME? メモリリーク検出}
-				do me.bgmPlay("", 0.0, 0.0)
+				do me.bgmPlay("", 0.0, 0.0) {★2}
 			}
 			catch()
 			end try
@@ -141,20 +142,15 @@ func Main()
 		do drawCObj.Draw(drawCTex, drawCTex, 0, 0.0)
 	catch()
 	end try
+
 {
-	{FIXME}
-		{{
-		実行時 例外が発生
-		catchできない？
-		kuin: 例外が発生しました。
-		不正なメモリアクセスが発生しました。
-		nullインスタンスなどにアクセスしていないか確認してください。
-		code = 16#c0000005
-		}}
+	{FIXME Exit時に例外発生?}
 	try
 		do drawCObj.MoveReset()
 	catch()
 	end try
+	do Dbg@Log("★★★Exit時に例外発生するらしい★★★")
+	do Kuin@Exit()
 }
 
 	try
@@ -232,29 +228,29 @@ func Main()
 	catch()
 	end try
 
-	{
+{
 	{FIXME? メモリリーク検出}
 	try
 		do Draw@LoadTex("")
 	catch()
 	end try
-	}
+}
 
-	{
+{
 	{FIXME? メモリリーク検出}
 	try
 		do Draw@LoadFont("")
 	catch()
 	end try
-	}
+}
 
-	{
+{
 	{FIXME? メモリリーク検出}
 	try
 		do Draw@LoadObj("")
 	catch()
 	end try
-	}
+}
 
 	try
 		do Draw@SetCamera(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
@@ -276,23 +272,23 @@ func Main()
 	catch()
 	end try
 
-	{
+{
 	{TODO}
 	{E9998}
 	try
 		do Draw@SetLight(0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 	catch()
 	end try
-	}
+}
 
-	{
+{
 	{TODO}
 	{E9998}
 	try
 		do Draw@UnsetLight(0)
 	catch()
 	end try
-	}
+}
 
 	{{{File}}}
 	do Dbg@Log("File@")
@@ -451,11 +447,11 @@ func Main()
 
 	{Movie}
 	do Dbg@Log("Movie@")
-	{
+{
 	{FIXME}
 	{E1030 skipが予約語}
 	do Movie@Play("", false)
-	}
+}
 
 	{Rnd}
 	do Dbg@Log("Rnd@")
@@ -472,13 +468,14 @@ func Main()
 	{Snd}
 	do Dbg@Log("Snd@")
 	var sndCSnd: Snd@CSnd
-	{
+
+{
 	{FIXME? メモリリーク}
 	try
 		do sndCSnd :: Snd@Load("")
 	catch()
 	end try
-	}
+}
 
 	try
 		do sndCSnd.Play(0.0, false, 0.0)
@@ -489,6 +486,7 @@ func Main()
 		do sndCSnd.Stop()
 	catch()
 	end try
+
 {
 	{FIXME E9999}
 	try
@@ -496,13 +494,18 @@ func Main()
 	catch()
 	end try
 }
-	{
-	{メモリリーク}
+
+{
+	{FIXME Exit時に例外発生?}
 	try
 		do sndCSnd.Volume(0.0)
 	catch()
 	end try
-	}
+
+	do Dbg@Log("★★★Exit時に例外発生するらしい★★★")
+	do Kuin@Exit()
+}
+
 	try
 		do sndCSnd.Pan(0.0)
 	catch()
@@ -536,4 +539,3 @@ func Main()
 
 	do Dbg@Log("End")
 end func
-
