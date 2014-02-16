@@ -1,27 +1,53 @@
 {
-	ƒRƒ“ƒpƒCƒ‹ƒGƒ‰[ƒ`ƒFƒbƒN—pB
-	Last Modified: 2014/02/16 10:36:41.
+	ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã‚¨ãƒ©ãƒ¼ãƒã‚§ãƒƒã‚¯ç”¨ã€‚
+	Last Modified: 2014/02/16 11:14:14.
 }
 func Main()
 	var c: C :: #C
+	do c.f()
 	class C()
 		var kuinClass: Kuin@CClass
 		var kuinExcept: Kuin@CExcpt
 		var kuinCfg: Kuin@CCfg
 		var drawTex: Draw@CTex
 		var drawFont: Draw@CFont
-		var drawObj: Draw@CObj {2014/01/04C³Ï‚İ}
-		var fileLoadStream: File@CLoadStream {2013/12/15C³Ï‚İ}
+		var drawObj: Draw@CObj
+		var fileLoadStream: File@CLoadStream
 		var fileSaveStream: File@CSaveStream
 		var rndRnd: Rnd@CRnd
-		var sndRnd: Snd@CSnd {2013/12/15C³Ï‚İ}
+	{
+		{FIXME E9999}
+		var sndRnd: Snd@CSnd
+	}
 
-		const bgmPlay: func<([]char, float, float): float> :: BGM@Play
-		const bgmPlayFade: func<([]char, float, float, int): float> :: BGM@PlayFade
-		const bgmPlayCross: func<([]char, float, float, int): float> :: BGM@PlayCross
-		const bgmStop: func<(): float> :: BGM@Stop
-		const bgmStopFade: func<(int): float> :: BGM@StopFade
-		const sndLoad: func<([]char): Snd@CSnd> :: Snd@Load
+		var bgmPlay: func<([]char, float, float): float>
+		var bgmPlayFade: func<([]char, float, float, int): float>
+		var bgmPlayCross: func<([]char, float, float, int): float>
+		var bgmStop: func<(): float>
+		var bgmStopFade: func<(int): float>
+		var sndLoad: func<([]char): Snd@CSnd>
+		func f()
+			do me.bgmPlay :: BGM@Play
+			do me.bgmPlayFade :: BGM@PlayFade
+			do me.bgmPlayCross :: BGM@PlayCross
+			do me.bgmStop :: BGM@Stop
+			do me.bgmStopFade :: BGM@StopFade
+			{
+			{FIXME E9999}
+			do me.sndLoad :: Snd@Load
+			}
+			try
+			{
+				{FIXME Dbg.txtãŒæ›´æ–°ã•ã‚Œãªã‹ã£ãŸã‚Šã€ã‚¯ãƒ©ãƒƒã‚·ãƒ¥ã—ãŸã‚Š...}
+				do me.bgmPlay(null, 0.0, 0.0)
+			}
+			{
+				{FIXME? ãƒ¡ãƒ¢ãƒªãƒªãƒ¼ã‚¯æ¤œå‡º}
+				do me.bgmPlay("", 0.0, 0.0)
+			}
+			catch()
+			end try
+		end func
 	end class
 
 	{{{BGM}}}
@@ -30,18 +56,22 @@ func Main()
 		do BGM@Play("", 0.0, 0.0)
 	catch()
 	end try
+
 	try
 		do BGM@PlayFade("", 0.0, 0.0, 1)
 	catch()
 	end try
+
 	try
 		do BGM@PlayCross("", 0.0, 0.0, 1)
 	catch()
 	end try
+
 	try
 		do BGM@Stop()
 	catch()
 	end try
+
 	try
 		do BGM@StopFade(1)
 	catch()
@@ -59,18 +89,22 @@ func Main()
 		do drawCTex :: #Draw@CTex
 	catch()
 	end try
+
 	try
 		do drawCTex.DrawScale(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 	catch()
 	end try
+
 	try
 		do drawCTex.DrawRot(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 	catch()
 	end try
+
 	try
 		do drawCTex.Width()
 	catch()
 	end try
+
 	try
 		do drawCTex.Height()
 	catch()
@@ -78,84 +112,96 @@ func Main()
 
 	do Dbg@Log("  Draw@CFont")
 	var drawCFont: Draw@CFont
-	{
 	try
 		do drawCFont :: #Draw@CFont
 	catch()
 	end try
+
 	try
-		do drawCFont.MakeTex(0, "", 0)
+		do drawCFont.Set(0, "abc", 0)
 	catch()
 	end try
-	}
 
 	do Dbg@Log("  Draw@CObj")
 	var drawCObj: Draw@CObj
-	{{ƒƒ‚ƒŠƒŠ[ƒN}
+{
+	{FIXME? ãƒ¡ãƒ¢ãƒªãƒªãƒ¼ã‚¯}
 	try
 		do drawCObj :: Draw@LoadObj("")
 	catch()
 	end try
-	}
+}
+
 	try
 		do drawCObj :: #Draw@CObj
 	catch()
 	end try
+
 	try
 		do drawCObj.Draw(drawCTex, drawCTex, 0, 0.0)
 	catch()
 	end try
-	{
+{
 	{FIXME}
-	{{
-	Às —áŠO‚ª”­¶
-	catch‚Å‚«‚È‚¢H
-	Kuin: —áŠO‚ª”­¶‚µ‚Ü‚µ‚½B
-	•s³‚Èƒƒ‚ƒŠƒAƒNƒZƒX‚ª”­¶‚µ‚Ü‚µ‚½B
-	nullƒCƒ“ƒXƒ^ƒ“ƒX‚È‚Ç‚ÉƒAƒNƒZƒX‚µ‚Ä‚¢‚È‚¢‚©Šm”F‚µ‚Ä‚­‚¾‚³‚¢B
-	Code = 16#c0000005
-	}}
+		{{
+		å®Ÿè¡Œæ™‚ ä¾‹å¤–ãŒç™ºç”Ÿ
+		catchã§ããªã„ï¼Ÿ
+		kuin: ä¾‹å¤–ãŒç™ºç”Ÿã—ã¾ã—ãŸã€‚
+		ä¸æ­£ãªãƒ¡ãƒ¢ãƒªã‚¢ã‚¯ã‚»ã‚¹ãŒç™ºç”Ÿã—ã¾ã—ãŸã€‚
+		nullã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãªã©ã«ã‚¢ã‚¯ã‚»ã‚¹ã—ã¦ã„ãªã„ã‹ç¢ºèªã—ã¦ãã ã•ã„ã€‚
+		code = 16#c0000005
+		}}
 	try
 		do drawCObj.MoveReset()
 	catch()
 	end try
-	}
+}
+
 	try
 		do drawCObj.MoveScale(0.0, 0.0, 0.0)
 	catch()
 	end try
+
 	try
 		do drawCObj.MoveRotX(0.0)
 	catch()
 	end try
+
 	try
 		do drawCObj.MoveRotY(0.0)
 	catch()
 	end try
+
 	try
 		do drawCObj.MoveRotZ(0.0)
 	catch()
 	end try
+
 	try
 		do drawCObj.MoveTrans(0.0, 0.0, 0.0)
 	catch()
 	end try
+
 	try
 		do drawCObj.MoveSRT(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 	catch()
 	end try
+
 	try
 		do drawCObj.MoveTransLook(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 	catch()
 	end try
+
 	try
 		do drawCObj.MoveTransLookFix(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 	catch()
 	end try
+
 	try
 		do drawCObj.MoveTransLookCamera(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 	catch()
 	end try
+
 	try
 		do drawCObj.MoveTransLookCameraFix(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 	catch()
@@ -165,58 +211,71 @@ func Main()
 		do Draw@SetViewport(0.0, 0.0, 0.0, 0.0)
 	catch()
 	end try
+
 	try
 		do Draw@ResetViewport()
 	catch()
 	end try
+
 	try
 		do Draw@SetBlend(Draw@EBlend#Alpha)
 	catch()
 	end try
+
 	try
 		do Draw@SetFilter(Draw@EFilter#None, 0.0, 0.0, 0.0, 0.0)
 	catch()
 	end try
+
 	try
 		do Draw@Rect(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 	catch()
 	end try
+
 	{
-	{ƒƒ‚ƒŠƒŠ[ƒN}
+	{FIXME? ãƒ¡ãƒ¢ãƒªãƒªãƒ¼ã‚¯æ¤œå‡º}
 	try
 		do Draw@LoadTex("")
 	catch()
 	end try
 	}
+
 	{
-	{ƒƒ‚ƒŠƒŠ[ƒN}
+	{FIXME? ãƒ¡ãƒ¢ãƒªãƒªãƒ¼ã‚¯æ¤œå‡º}
 	try
 		do Draw@LoadFont("")
 	catch()
 	end try
 	}
+
 	{
+	{FIXME? ãƒ¡ãƒ¢ãƒªãƒªãƒ¼ã‚¯æ¤œå‡º}
 	try
 		do Draw@LoadObj("")
 	catch()
 	end try
 	}
+
 	try
 		do Draw@SetCamera(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 	catch()
 	end try
+
 	try
 		do Draw@SetProj(0.0, 0.0, 0.0)
 	catch()
 	end try
+
 	try
 		do Draw@SetAmbLight(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 	catch()
 	end try
+
 	try
 		do Draw@SetDirLight(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 	catch()
 	end try
+
 	{
 	{TODO}
 	{E9998}
@@ -225,6 +284,7 @@ func Main()
 	catch()
 	end try
 	}
+
 	{
 	{TODO}
 	{E9998}
@@ -241,38 +301,47 @@ func Main()
 		do fileCLoadStream :: #File@CLoadStream
 	catch()
 	end try
+
 	try
 		do fileCLoadStream.Read(0)
 	catch()
 	end try
+
 	try
 		do fileCLoadStream.Seek(0, File@EOrigin#Head)
 	catch()
 	end try
+
 	try
 		do fileCLoadStream.Tell()
 	catch()
 	end try
+
 	try
 		do fileCLoadStream.ChkEnd()
 	catch()
 	end try
+
 	try
 		do fileCLoadStream.SetSplitChars("")
 	catch()
 	end try
+
 	try
 		do fileCLoadStream.ReadStr()
 	catch()
 	end try
+
 	try
 		do fileCLoadStream.ReadInt()
 	catch()
 	end try
+
 	try
 		do fileCLoadStream.ReadChar()
 	catch()
 	end try
+
 	try
 		do fileCLoadStream.ReadFloat()
 	catch()
@@ -283,22 +352,27 @@ func Main()
 		do fileCSaveStream :: #File@CSaveStream
 	catch()
 	end try
+
 	try
 		do fileCSaveStream.Write("".ToBins())
 	catch()
 	end try
+
 	try
 		do fileCSaveStream.WriteStr("")
 	catch()
 	end try
+
 	try
 		do fileCSaveStream.WriteInt(0)
 	catch()
 	end try
+
 	try
 		do fileCSaveStream.WriteChar('0')
 	catch()
 	end try
+
 	try
 		do fileCSaveStream.WriteFloat(0.0)
 	catch()
@@ -308,22 +382,27 @@ func Main()
 		do File@ReadPack("")
 	catch()
 	end try
+
 	try
 		do File@ReadFile("")
 	catch()
 	end try
+
 	try
 		do File@WriteFile("", "".ToBins())
 	catch()
 	end try
+
 	try
 		do File@LoadPackStream("")
 	catch()
 	end try
+
 	try
 		do File@LoadFileStream("")
 	catch()
 	end try
+
 	try
 		do File@SaveFileStream("", false)
 	catch()
@@ -344,7 +423,7 @@ func Main()
 	{Kuin}
 	do Dbg@Log("Kuin@")
 	do Kuin@Act()
-	do Kuin@Sleep(0)
+	do Kuin@Sleep(1)
 	do Kuin@Cnt()
 	do Kuin@GetCmdLines()
 	do Kuin@FPS()
@@ -374,7 +453,7 @@ func Main()
 	do Dbg@Log("Movie@")
 	{
 	{FIXME}
-	{E1030 skip‚ª—\–ñŒê}
+	{E1030 skipãŒäºˆç´„èª}
 	do Movie@Play("", false)
 	}
 
@@ -390,12 +469,11 @@ func Main()
 	do Dbg@Log("SaveData@")
 	do SaveData@Save("temp", "".ToBins())
 	do SaveData@Load("temp")
-
 	{Snd}
 	do Dbg@Log("Snd@")
 	var sndCSnd: Snd@CSnd
 	{
-	{ƒƒ‚ƒŠƒŠ[ƒN}
+	{FIXME? ãƒ¡ãƒ¢ãƒªãƒªãƒ¼ã‚¯}
 	try
 		do sndCSnd :: Snd@Load("")
 	catch()
@@ -406,16 +484,20 @@ func Main()
 		do sndCSnd.Play(0.0, false, 0.0)
 	catch()
 	end try
+
 	try
 		do sndCSnd.Stop()
 	catch()
 	end try
+{
+	{FIXME E9999}
 	try
 		do sndCSnd.ChkPlay()
 	catch()
 	end try
+}
 	{
-	{ƒƒ‚ƒŠƒŠ[ƒN}
+	{ãƒ¡ãƒ¢ãƒªãƒªãƒ¼ã‚¯}
 	try
 		do sndCSnd.Volume(0.0)
 	catch()
@@ -425,14 +507,17 @@ func Main()
 		do sndCSnd.Pan(0.0)
 	catch()
 	end try
+
 	try
 		do sndCSnd.Freq(0.0)
 	catch()
 	end try
+
 	try
 		do sndCSnd.Pos()
 	catch()
 	end try
+
 	try
 		do sndCSnd.Len()
 	catch()
