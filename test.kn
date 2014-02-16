@@ -1,0 +1,454 @@
+{
+	コンパイルエラーチェック用。
+	Last Modified: 2014/02/16 10:36:41.
+}
+func Main()
+	var c: C :: #C
+	class C()
+		var kuinClass: Kuin@CClass
+		var kuinExcept: Kuin@CExcpt
+		var kuinCfg: Kuin@CCfg
+		var drawTex: Draw@CTex
+		var drawFont: Draw@CFont
+		var drawObj: Draw@CObj {2014/01/04修正済み}
+		var fileLoadStream: File@CLoadStream {2013/12/15修正済み}
+		var fileSaveStream: File@CSaveStream
+		var rndRnd: Rnd@CRnd
+		var sndRnd: Snd@CSnd {2013/12/15修正済み}
+
+		const bgmPlay: func<([]char, float, float): float> :: BGM@Play
+		const bgmPlayFade: func<([]char, float, float, int): float> :: BGM@PlayFade
+		const bgmPlayCross: func<([]char, float, float, int): float> :: BGM@PlayCross
+		const bgmStop: func<(): float> :: BGM@Stop
+		const bgmStopFade: func<(int): float> :: BGM@StopFade
+		const sndLoad: func<([]char): Snd@CSnd> :: Snd@Load
+	end class
+
+	{{{BGM}}}
+	do Dbg@Log("BGM@")
+	try
+		do BGM@Play("", 0.0, 0.0)
+	catch()
+	end try
+	try
+		do BGM@PlayFade("", 0.0, 0.0, 1)
+	catch()
+	end try
+	try
+		do BGM@PlayCross("", 0.0, 0.0, 1)
+	catch()
+	end try
+	try
+		do BGM@Stop()
+	catch()
+	end try
+	try
+		do BGM@StopFade(1)
+	catch()
+	end try
+	
+	{Dbg}
+	do Dbg@Log("Dbg@")
+	do Dbg@ErrMsg(0)
+
+	{Draw}
+	do Dbg@Log("Draw@")
+	do Dbg@Log("  Draw@CTex")
+	var drawCTex: Draw@CTex
+	try
+		do drawCTex :: #Draw@CTex
+	catch()
+	end try
+	try
+		do drawCTex.DrawScale(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+	catch()
+	end try
+	try
+		do drawCTex.DrawRot(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+	catch()
+	end try
+	try
+		do drawCTex.Width()
+	catch()
+	end try
+	try
+		do drawCTex.Height()
+	catch()
+	end try
+
+	do Dbg@Log("  Draw@CFont")
+	var drawCFont: Draw@CFont
+	{
+	try
+		do drawCFont :: #Draw@CFont
+	catch()
+	end try
+	try
+		do drawCFont.MakeTex(0, "", 0)
+	catch()
+	end try
+	}
+
+	do Dbg@Log("  Draw@CObj")
+	var drawCObj: Draw@CObj
+	{{メモリリーク}
+	try
+		do drawCObj :: Draw@LoadObj("")
+	catch()
+	end try
+	}
+	try
+		do drawCObj :: #Draw@CObj
+	catch()
+	end try
+	try
+		do drawCObj.Draw(drawCTex, drawCTex, 0, 0.0)
+	catch()
+	end try
+	{
+	{FIXME}
+	{{
+	実行時 例外が発生
+	catchできない？
+	Kuin: 例外が発生しました。
+	不正なメモリアクセスが発生しました。
+	nullインスタンスなどにアクセスしていないか確認してください。
+	Code = 16#c0000005
+	}}
+	try
+		do drawCObj.MoveReset()
+	catch()
+	end try
+	}
+	try
+		do drawCObj.MoveScale(0.0, 0.0, 0.0)
+	catch()
+	end try
+	try
+		do drawCObj.MoveRotX(0.0)
+	catch()
+	end try
+	try
+		do drawCObj.MoveRotY(0.0)
+	catch()
+	end try
+	try
+		do drawCObj.MoveRotZ(0.0)
+	catch()
+	end try
+	try
+		do drawCObj.MoveTrans(0.0, 0.0, 0.0)
+	catch()
+	end try
+	try
+		do drawCObj.MoveSRT(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+	catch()
+	end try
+	try
+		do drawCObj.MoveTransLook(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+	catch()
+	end try
+	try
+		do drawCObj.MoveTransLookFix(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+	catch()
+	end try
+	try
+		do drawCObj.MoveTransLookCamera(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+	catch()
+	end try
+	try
+		do drawCObj.MoveTransLookCameraFix(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+	catch()
+	end try
+
+	try
+		do Draw@SetViewport(0.0, 0.0, 0.0, 0.0)
+	catch()
+	end try
+	try
+		do Draw@ResetViewport()
+	catch()
+	end try
+	try
+		do Draw@SetBlend(Draw@EBlend#Alpha)
+	catch()
+	end try
+	try
+		do Draw@SetFilter(Draw@EFilter#None, 0.0, 0.0, 0.0, 0.0)
+	catch()
+	end try
+	try
+		do Draw@Rect(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+	catch()
+	end try
+	{
+	{メモリリーク}
+	try
+		do Draw@LoadTex("")
+	catch()
+	end try
+	}
+	{
+	{メモリリーク}
+	try
+		do Draw@LoadFont("")
+	catch()
+	end try
+	}
+	{
+	try
+		do Draw@LoadObj("")
+	catch()
+	end try
+	}
+	try
+		do Draw@SetCamera(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+	catch()
+	end try
+	try
+		do Draw@SetProj(0.0, 0.0, 0.0)
+	catch()
+	end try
+	try
+		do Draw@SetAmbLight(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+	catch()
+	end try
+	try
+		do Draw@SetDirLight(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+	catch()
+	end try
+	{
+	{TODO}
+	{E9998}
+	try
+		do Draw@SetLight(0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+	catch()
+	end try
+	}
+	{
+	{TODO}
+	{E9998}
+	try
+		do Draw@UnsetLight(0)
+	catch()
+	end try
+	}
+
+	{{{File}}}
+	do Dbg@Log("File@")
+	var fileCLoadStream: File@CLoadStream
+	try
+		do fileCLoadStream :: #File@CLoadStream
+	catch()
+	end try
+	try
+		do fileCLoadStream.Read(0)
+	catch()
+	end try
+	try
+		do fileCLoadStream.Seek(0, File@EOrigin#Head)
+	catch()
+	end try
+	try
+		do fileCLoadStream.Tell()
+	catch()
+	end try
+	try
+		do fileCLoadStream.ChkEnd()
+	catch()
+	end try
+	try
+		do fileCLoadStream.SetSplitChars("")
+	catch()
+	end try
+	try
+		do fileCLoadStream.ReadStr()
+	catch()
+	end try
+	try
+		do fileCLoadStream.ReadInt()
+	catch()
+	end try
+	try
+		do fileCLoadStream.ReadChar()
+	catch()
+	end try
+	try
+		do fileCLoadStream.ReadFloat()
+	catch()
+	end try
+
+	var fileCSaveStream: File@CSaveStream
+	try
+		do fileCSaveStream :: #File@CSaveStream
+	catch()
+	end try
+	try
+		do fileCSaveStream.Write("".ToBins())
+	catch()
+	end try
+	try
+		do fileCSaveStream.WriteStr("")
+	catch()
+	end try
+	try
+		do fileCSaveStream.WriteInt(0)
+	catch()
+	end try
+	try
+		do fileCSaveStream.WriteChar('0')
+	catch()
+	end try
+	try
+		do fileCSaveStream.WriteFloat(0.0)
+	catch()
+	end try
+
+	try
+		do File@ReadPack("")
+	catch()
+	end try
+	try
+		do File@ReadFile("")
+	catch()
+	end try
+	try
+		do File@WriteFile("", "".ToBins())
+	catch()
+	end try
+	try
+		do File@LoadPackStream("")
+	catch()
+	end try
+	try
+		do File@LoadFileStream("")
+	catch()
+	end try
+	try
+		do File@SaveFileStream("", false)
+	catch()
+	end try
+
+	{Input}
+	do Dbg@Log("Input@")
+	do Input@Pad(0, Input@EBtn#A)
+	do Input@PadPress(0, Input@EBtn#A)
+	do Input@SetCfg(0, Input@EBtn#A, 0)
+	do Input@GetCfg(0, Input@EBtn#A)
+	do Input@LockCfg(false)
+	do Input@SetPadKey(0, Input@EBtn#A, [0])
+	do Input@Mouse(Input@EMouse#Left)
+	do Input@MouseX()
+	do Input@MouseY()
+
+	{Kuin}
+	do Dbg@Log("Kuin@")
+	do Kuin@Act()
+	do Kuin@Sleep(0)
+	do Kuin@Cnt()
+	do Kuin@GetCmdLines()
+	do Kuin@FPS()
+	do Kuin@Hash("".ToBins())
+
+	{Lib}
+	do Dbg@Log("Lib@")
+	do Lib@Cos(Lib@Pi)
+	do Lib@Sin(Lib@Pi)
+	do Lib@Tan(Lib@Pi)
+	do Lib@ACos(0.0)
+	do Lib@ASin(0.0)
+	do Lib@ATan(+inf)
+	do Lib@Sqrt(0.0)
+	do Lib@Exp(0.0)
+	do Lib@Ln(Lib@E)
+	do Lib@Log(Lib@E, Lib@E)
+	var a: float
+	do Lib@Rot(&a, &a, 0.0, 0.0, 0.0)
+	do Lib@InvRot(0.0, 0.0)
+	do Lib@Hypot(0.0, 0.0)
+	do Lib@Chase(&a, 0.0, 0.0)
+	do Lib@Floor(0.0)
+	do Lib@Ceil(0.0)
+
+	{Movie}
+	do Dbg@Log("Movie@")
+	{
+	{FIXME}
+	{E1030 skipが予約語}
+	do Movie@Play("", false)
+	}
+
+	{Rnd}
+	do Dbg@Log("Rnd@")
+	var rndCRnd: Rnd@CRnd :: Rnd@Make(0)
+	do rndCRnd.Get(0, 0)
+	do rndCRnd.GetF()
+	do Rnd@Get(0, 0)
+	do Rnd@GetF()
+
+	{SaveData}
+	do Dbg@Log("SaveData@")
+	do SaveData@Save("temp", "".ToBins())
+	do SaveData@Load("temp")
+
+	{Snd}
+	do Dbg@Log("Snd@")
+	var sndCSnd: Snd@CSnd
+	{
+	{メモリリーク}
+	try
+		do sndCSnd :: Snd@Load("")
+	catch()
+	end try
+	}
+
+	try
+		do sndCSnd.Play(0.0, false, 0.0)
+	catch()
+	end try
+	try
+		do sndCSnd.Stop()
+	catch()
+	end try
+	try
+		do sndCSnd.ChkPlay()
+	catch()
+	end try
+	{
+	{メモリリーク}
+	try
+		do sndCSnd.Volume(0.0)
+	catch()
+	end try
+	}
+	try
+		do sndCSnd.Pan(0.0)
+	catch()
+	end try
+	try
+		do sndCSnd.Freq(0.0)
+	catch()
+	end try
+	try
+		do sndCSnd.Pos()
+	catch()
+	end try
+	try
+		do sndCSnd.Len()
+	catch()
+	end try
+
+	do Snd@GetMasterVolume()
+	do Snd@SetMasterVolume(0.0)
+
+	{Time}
+	do Dbg@Log("Time@")
+	do Time@Sys()
+	do Time@Now()
+	var b: int
+	do Time@IToD(0,&b,&b,&b,&b,&b,&b)
+	do Time@DToI(0,0,0,0,0,0)
+
+	do Dbg@Log("End")
+end func
+
