@@ -1,6 +1,6 @@
 {
 	コンパイルエラーチェック用。
-	Last Modified: 2014/02/16 11:23:56.
+	Last Modified: 2014/02/16 12:59:40.
 }
 func Main()
 	var c: C :: #C
@@ -26,6 +26,9 @@ func Main()
 		var bgmStop: func<(): float>
 		var bgmStopFade: func<(int): float>
 		var sndLoad: func<([]char): Snd@CSnd>
+		var func0: func<()>
+		var func1: func<(int)>
+
 		func f()
 			do me.bgmPlay :: BGM@Play
 			do me.bgmPlayFade :: BGM@PlayFade
@@ -48,6 +51,38 @@ func Main()
 			}
 			catch()
 			end try
+
+		{
+			{FIXME (番号なし)Error: インデックスが配列の境界外です。}
+			do me.func0()
+		}
+
+		{
+			{FIXME Exit時に例外発生?}
+			try
+				do me.func1(1)
+			catch()
+			end try
+			do Dbg@Log("★★★Exit時に例外発生するらしい★★★")
+			do Kuin@Exit()
+		}
+
+		{
+			{FIXME 型が一致しません}
+			do me.func0 = foo0
+			func foo0()
+			end func
+		}
+
+		{
+			{FIXME 型が一致しません}
+			do me.func1 = foo1
+			func foo1(n: int)
+				return 0
+			end func
+		}
+
+			{TODO もう少しチェック項目を増やそうと思っています}
 		end func
 	end class
 
